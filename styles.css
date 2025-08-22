@@ -74,6 +74,9 @@ body {
     
     body {
         padding: 1rem;
+        background-size: cover; /* Full screen background on tablets */
+        justify-content: flex-start; /* Move content up */
+        padding-top: 15vh; /* Add top spacing to position text higher */
     }
 }
 
@@ -84,5 +87,11 @@ body {
     
     .hero-subtitle {
         font-size: 1.4rem;
+    }
+    
+    body {
+        background-size: cover; /* Full screen background on mobile */
+        padding-top: 20vh; /* More top spacing for smaller screens */
+        background-attachment: scroll; /* Fix iOS background attachment issues */
     }
 }
