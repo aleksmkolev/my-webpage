@@ -6,14 +6,10 @@
 
 body {
     background-color: #0a0a0a; /* Almost black background */
-    background-image: url('backgroundWave.png');
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: 50%;
     background-attachment: fixed;
     font-family: 'Roboto', sans-serif;
     color: #ffffff;
-    min-height: 100vh;
+    min-height: 50vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -21,6 +17,22 @@ body {
     padding: 2rem;
     line-height: 1.6;
     text-align: center;
+}
+
+/* Apply Ken Burns animation to body */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('backgroundWave.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 50%;
+    z-index: -1;
+    animation: kenburns-top 6s ease-in-out infinite alternate;
 }
 
 .hero-title {
@@ -39,6 +51,28 @@ body {
     text-align: center;
 }
 
+.kenburns-top {
+	-webkit-animation: kenburns-top 3s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+	        animation: kenburns-top 3s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+}
+
+ @-webkit-keyframes kenburns-top {
+    0% {
+      -webkit-transform: scale(1) translateY(0);
+              transform: scale(1) translateY(0);
+      -webkit-transform-origin: 50% 16%;
+              transform-origin: 50% 16%;
+    }
+    100% {
+      -webkit-transform: scale(1.25) translateY(-15px);
+              transform: scale(1.25) translateY(-15px);
+      -webkit-transform-origin: top;
+              transform-origin: top;
+    }
+  }
+  
+  
+
 .gradient-text {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     -webkit-background-clip: text;
@@ -46,21 +80,87 @@ body {
     background-clip: text;
     font-weight: 500;
 }
-.gradient-text2 {
+
+/* Custom bounce animation for "Hi," */
+.bounce-text {
+    display: inline-block;
+    animation: bounce-animation 1.5s ease-in-out infinite
+
+}
+
+@keyframes bounce-animation {
+    0% {
+        transform: translateY(0);
+    }
+    20% {
+        transform: translateY(-20px);
+    }
+    40% {
+        transform: translateY(0);
+    }
+    60% {
+        transform: translateY(-10px);
+    }
+    80% {
+        transform: translateY(0);
+    }
+    90% {
+        transform: translateY(-5px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+
+
+/* Email with hinge animation on hover */
+.email-hinge {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     font-weight: 500;
+    cursor: pointer;
+    display: inline-block;
+    transition: all 0.3s ease;
 }
-.gradient-text2:hover {
-    background: linear-gradient(135deg, #ea1644 0%, #df82be 100%);
+
+.email-hinge:hover {
+    animation: headShake 1s infinite;
+    background: linear-gradient(30deg, #ea1644 0%, #df82be 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    font-weight: 500;
-    
 }
+
+/* Hinge animation keyframes */
+@keyframes hinge {
+    0% {
+        transform: rotate(0);
+        transform-origin: top left;
+        animation-timing-function: ease-in-out;
+    }
+    20%, 60% {
+        transform: rotate(80deg);
+        transform-origin: top left;
+        animation-timing-function: ease-in-out;
+    }
+    40%, 80% {
+        transform: rotate(60deg);
+        transform-origin: top left;
+        animation-timing-function: ease-in-out;
+        opacity: 1;
+    }
+    100% {
+        transform: translate3d(0, 700px, 0);
+        opacity: 0;
+    }
+}
+
+
+
+
 
 /* Responsive design */
 @media (max-width: 768px) {
@@ -93,5 +193,23 @@ body {
         background-size: cover; /* Full screen background on mobile */
         padding-top: 20vh; /* More top spacing for smaller screens */
         background-attachment: scroll; /* Fix iOS background attachment issues */
+    }
+    
+    /* Scale background image 4x bigger on mobile */
+    body::before {
+        background-size: 200%; /* 4x bigger than the original 50% */
+        animation: kenburns-top-mobile 6s ease-in-out infinite alternate;
+    }
+}
+
+/* Mobile-specific Ken Burns animation with 4x scaling */
+@keyframes kenburns-top-mobile {
+    0% {
+        transform: scale(1) translateY(0);
+        transform-origin: 50% 16%;
+    }
+    100% {
+        transform: scale(5) translateY(-15px); /* Scale to 5x (4x base + 1x animation) */
+        transform-origin: top;
     }
 }
